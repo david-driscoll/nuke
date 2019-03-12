@@ -138,12 +138,21 @@ namespace Nuke.Common.Execution
 
         private static bool HasSkippingCondition(ExecutableTarget target, IEnumerable<Expression<Func<bool>>> conditions)
         {
+            string GetSkipReason(Expression<Func<bool>> condition) =>
+                condition.Body.ToString()
+                    .Replace("False", "false")
+                    .Replace("True", "true")
+                    .Replace("OrElse", "||")
+                    .Replace("AndAlso", "&&")
+                    .Replace("value(Build).", string.Empty)
+                    .ReplaceRegex(@"^\((?'expression'.+)\)$", x => string.Empty);
+
             target.SkipReason = null; // solely for testing
 
             foreach (var condition in conditions)
             {
                 if (!condition.Compile().Invoke())
-                    target.SkipReason = condition.Body.ToString();
+                    target.SkipReason = GetSkipReason(condition);
             }
 
             return target.SkipReason != null;

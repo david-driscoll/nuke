@@ -58,6 +58,22 @@ partial class Build : NukeBuild
     readonly string ReleaseBranchPrefix = "release";
     readonly string HotfixBranchPrefix = "hotfix";
 
+    string Method(string a) => "";
+
+    Target A => _ => _
+        .OnlyWhenStatic(() => (MasterBranch == "Nein" || Method("b") == "a") && MasterBranch != "b")
+        .Executes(() =>
+        {
+
+        });
+
+    Target B => _ => _
+        .DependsOn(A)
+        .Executes(() =>
+        {
+
+        });
+
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>

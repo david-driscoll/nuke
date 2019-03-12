@@ -17,7 +17,9 @@ Host:
 Plan: 
 Root: 
 Skip:
+- A
 - Analysis
+- B
 - Changelog
 - Clean
 - Compile
@@ -35,7 +37,9 @@ Solution:
 Source: 
 SymbolSource: 
 Target:
+- A
 - Analysis
+- B
 - Changelog
 - Clean
 - Compile
