@@ -9,6 +9,18 @@ using Xunit;
 
 namespace Nuke.Common.Tests
 {
+    public class ExternalFilesUtilityTest
+    {
+        [Theory]
+        [InlineData("https://github.com/nuke-build/nuke", 10)]
+        [InlineData("https://github.com/nuke-build/nuke/tree/master/.teamcity", 10)]
+        public void TestGetFiles(string url, int count)
+        {
+            // ExternalFilesUtility.GetFiles(url).Should().HaveCount(count);
+        }
+
+    }
+
     public class EnvironmentInfoTest
     {
         [Theory]
