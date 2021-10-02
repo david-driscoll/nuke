@@ -50,6 +50,10 @@ else {
         $DotNetGlobal = $(Get-Content $DotNetGlobalFile | Out-String | ConvertFrom-Json)
         if ($DotNetGlobal.PSObject.Properties["sdk"] -and $DotNetGlobal.sdk.PSObject.Properties["version"]) {
             $DotNetVersion = $DotNetGlobal.sdk.version
+            # If the version is an rc or beta drop
+            if ($DotNetVersion -match '-') {
+                $DotNetVersion = $DotNetVersion.Substring(0, $DotNetVersion.IndexOf('-'))
+            }
         }
     }
 
